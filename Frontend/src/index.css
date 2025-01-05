@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@media all and (max-width: 500px) { /* your content here */
+
+.main-cont{
+    width: 100%!important;
+    height: 100%!important;
+    border-radius: 0;
+}
+
+}
+
+.by-collins-adi{
+    font-size: 10px;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 9px solid;
+    border-color: #dbdcef;
+    border-right-color: #000000;
+    animation: spinner-d3wgkg 1s infinite linear;
+ }
+ 
+ @keyframes spinner-d3wgkg {
+    to {
+       transform: rotate(1turn);
+    }
+ }
