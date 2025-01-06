@@ -53,7 +53,7 @@ export const TransactionDetails = () => {
         BigInt(amount) + BigInt(fee),
         selectedToken?.name as string
       );
-      console.log(signature);
+      // console.log(signature);
 
       const message = {
         owner: address?.toString() || "",
@@ -63,7 +63,7 @@ export const TransactionDetails = () => {
         recipient: receiverAddress,
       };
 
-      console.log(message);
+      // console.log(message);
 
       const response = await fetch(`${apiUrl}/transfer`, {
         method: "POST",
@@ -80,7 +80,7 @@ export const TransactionDetails = () => {
 
       const data = await response.json();
 
-      console.log(data);
+      // console.log(data);
 
       if (data.status) {
         setIsSuccess(true);
@@ -90,7 +90,7 @@ export const TransactionDetails = () => {
         setShowTransactionDetails(false);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setError("Could not finish transaction");
     } finally {
       setIsLoading(false);

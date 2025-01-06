@@ -3,15 +3,14 @@ import dotenv from "dotenv";
 dotenv.config();
 import { convertGasToUSD } from "./convertGas";
 import { Message } from "../interfaces/Imessage";
+import { getContract } from "common/config/contracts";
 // the address of the gasless transfer contract
-const GASLESS_TRANSFER_CONTRACT_ADDRESS = process.env
-  .GASLESS_TRANSFER_CONTRACT_ADDRESS as string;
 
 // the private key used in the deployer of the gasless transfer contract (OWNER)
 const SPENDER_PRIVATE_KEY = process.env.PRIVATE_KEY as string;
 
 // check if all the required environment variables are set
-if (!GASLESS_TRANSFER_CONTRACT_ADDRESS || !SPENDER_PRIVATE_KEY) {
+if (!SPENDER_PRIVATE_KEY) {
   throw new Error("Missing required environment variables");
 }
 
@@ -19,8 +18,12 @@ if (!GASLESS_TRANSFER_CONTRACT_ADDRESS || !SPENDER_PRIVATE_KEY) {
 export const calculateGas = async (
   signature: string,
   message: Message,
-  rpcUrl: string
+  rpcUrl: string,
+  chain: string
 ) => {
+
+  const GASLESS_TRANSFER_CONTRACT_ADDRESS = getContract(chain);
+
   // extract the v, r, s from the signature
   const { v, r, s } = ethers.Signature.from(signature);
 

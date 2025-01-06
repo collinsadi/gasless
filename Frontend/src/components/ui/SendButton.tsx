@@ -28,7 +28,7 @@ export const SendButton = () => {
         BigInt(amount),
         selectedToken?.name as string
       );
-      console.log(signature);
+      // console.log(signature);
 
       const message = {
         owner: address?.toString() || "",
@@ -38,7 +38,7 @@ export const SendButton = () => {
         recipient: receiverAddress,
       };
 
-      console.log(selectedToken?.chain.toString());
+      // console.log(selectedToken?.chain.toString());
 
       const charge = await calculateCharge(
         amount,
@@ -47,7 +47,7 @@ export const SendButton = () => {
         selectedToken?.chain.toString() || "",
         selectedToken?.address.toString() || ""
       );
-      console.log(charge);
+      // console.log(charge);
 
       if (charge.status) {
         setShowTransactionDetails(true);
@@ -57,7 +57,7 @@ export const SendButton = () => {
         setError("Unable to initiate transaction");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setError("Unable to initiate transaction");
     } finally {
       setIsLoading(false);

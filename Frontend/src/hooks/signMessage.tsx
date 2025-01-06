@@ -3,7 +3,7 @@ import { useAccount, useReadContract } from "wagmi";
 import { ethers } from "ethers";
 
 import { useGlobal } from "../contexts/Globals";
-import { spender } from "../constants/spender";
+import { getContract } from "../config/contract";
 
 interface SignatureData {
   v: number;
@@ -40,8 +40,10 @@ export function usePermitSign() {
   const { tokenAddress } = useGlobal();
   const { address, chain } = useAccount();
   const [signature, setSignature] = useState<SignatureData | null>(null);
+  const spender = getContract(chain?.id as number).address;
 
-  // Get nonce for the current user
+  // Get nonce for the current user, i want this to run anytime the user changes chain or completes a transaction
+
   const { data: nonce } = useReadContract({
     address: tokenAddress,
     abi: PERMIT_ABI,
@@ -64,7 +66,7 @@ export function usePermitSign() {
     const deadline = BigInt(Math.floor(Date.now() / 1000) + 3600); // 1 hour from now
 
     const domain = {
-      name: "GaslessToken",
+      name: name,
       version: "1",
       chainId: chain?.id,
       verifyingContract: tokenAddress,
@@ -104,7 +106,7 @@ export function usePermitSign() {
       setSignature(signatureData);
       return signatureData;
     } catch (error) {
-      console.error("Error signing permit:", error);
+      // console.error("Error signing permit:", error);
       throw error;
     }
   };

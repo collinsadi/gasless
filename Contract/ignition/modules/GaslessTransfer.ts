@@ -3,7 +3,7 @@
 
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-const tokenAddress = "0x0605DE20f52B8b5f850A234c170Dcbd032381BA7";
+const tokenAddress = "0x70112865C27d11E855aD45a3BAA10207C036BD1E";
 
 const GaslessTransferModule = buildModule("GaslessTransferModule", (m) => {
   const gaslessTransfer = m.contract("GaslessTransfer", [tokenAddress]);

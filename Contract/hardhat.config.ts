@@ -25,6 +25,10 @@ module.exports = {
       accounts: [SEPOLIA_PRIVATE_KEY],
       gasPrice: 1000000000,
     },
+    "optimism-sepolia": {
+      url: `https://opt-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      accounts: [SEPOLIA_PRIVATE_KEY],
+    },
   },
   etherscan: {
     apiKey: {

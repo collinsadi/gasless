@@ -4,18 +4,14 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 import { ethers } from "ethers";
 
-const tokenName = "GaslessToken";
-const tokenSymbol = "GLT";
-const initialSupply = ethers.parseEther("1000000"); // 1000000 GLT
+const tokenName = "Optimism";
+const tokenSymbol = "OP";
+const initialSupply = ethers.parseEther("1000000"); // 1000000 OP
 
-const GaslessTokenModule = buildModule("GaslessTokenModule", (m) => {
-  const token = m.contract("GaslessToken", [
-    tokenName,
-    tokenSymbol,
-    initialSupply,
-  ]);
+const OptimismModule = buildModule("OptimismModule", (m) => {
+  const token = m.contract("Optimism", [tokenName, tokenSymbol, initialSupply]);
 
   return { token };
 });
 
-export default GaslessTokenModule;
+export default OptimismModule;

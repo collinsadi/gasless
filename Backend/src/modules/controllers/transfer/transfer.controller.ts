@@ -6,8 +6,8 @@ import { ENVIRONMENT } from "../../../common/config/environment";
 import { getRpcUrl } from "common/utils/rpcUtil";
 import { ETHToLSK, ETHToOP, ETHToUSDC } from "../../../common/utils/ratePairs";
 import { calculateGas } from "common/utils/calculateGas";
-
-const { CONTRACT_ADDRESS } = ENVIRONMENT.GASLESS_TRANSFER;
+import { getContract } from "common/config/contracts";
+import { mintTokens } from "common/utils/claimUtil";
 
 export const transferController = async (
   req: Request,
@@ -19,8 +19,9 @@ export const transferController = async (
 
   try {
     const rpcUrl = getRpcUrl(String(chain).toUpperCase());
+    const CONTRACT_ADDRESS = getContract(String(chain).toLowerCase());
 
-    if (!CONTRACT_ADDRESS || !rpcUrl) {
+    if (!rpcUrl) {
       res.status(500).json({
         status: false,
         message: "Contract address or RPC URL not found",
@@ -70,7 +71,12 @@ export const transferController = async (
     );
 
     if (result.willSucceed) {
-      await transferGasless(signature, messageObject, rpcUrl);
+      await transferGasless(
+        signature,
+        messageObject,
+        rpcUrl,
+        String(chain).toLowerCase()
+      );
 
       res
         .status(200)
@@ -99,7 +105,7 @@ export const calculateGasCost = async (
   try {
     const rpcUrl = getRpcUrl(String(chain).toUpperCase());
 
-    if (!CONTRACT_ADDRESS || !rpcUrl) {
+    if (!rpcUrl) {
       res.status(500).json({
         status: false,
         message: "Contract address or RPC URL not found",
@@ -141,7 +147,12 @@ export const calculateGasCost = async (
 
     const messageObject = message as Message;
 
-    const estimatedGas = await calculateGas(signature, messageObject, rpcUrl);
+    const estimatedGas = await calculateGas(
+      signature,
+      messageObject,
+      rpcUrl,
+      String(chain).toLowerCase()
+    );
     const gasCostETH = estimatedGas;
     const gasCostWithMarkup = Number(gasCostETH);
 
@@ -159,6 +170,19 @@ export const calculateGasCost = async (
       status: true,
       gas: Math.ceil(Number(gas)),
     });
+  } catch (err: any) {
+    console.log(err);
+    res.status(500).json({ status: false, message: "Internal server error" });
+    return;
+  }
+};
+
+export const claimTokens = async (req: Request, res: Response) => {
+  const { to, amount, tokenAddress } = req.body;
+
+  try { 
+    await mintTokens(to, amount, tokenAddress);
+    res.status(200).json({ status: true, message: "Tokens claimed" });
   } catch (err: any) {
     console.log(err);
     res.status(500).json({ status: false, message: "Internal server error" });

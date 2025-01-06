@@ -1,11 +1,13 @@
 import { IoClose } from "react-icons/io5";
 import { useGlobal } from "../../contexts/Globals";
+import { useFaucet } from "../../contexts/Faucet";
 
 export const SuccessModal = () => {
   const { setIsSuccess, isSuccess } = useGlobal();
-
+  const { setAmount } = useFaucet();
   const handleClose = () => {
     setIsSuccess(false);
+    setAmount("");
   };
 
   return (

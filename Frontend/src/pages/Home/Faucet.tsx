@@ -5,10 +5,10 @@ import { useGlobal } from "../../contexts/Globals";
 import { DisabledFaucetReceivingAddress } from "../../components/Faucet/DisabledFaucetReceivingAddress";
 import { FaExclamation } from "react-icons/fa";
 import { ReceiveButton } from "../../components/Faucet/ReceiveButton";
+import { SuccessModal } from "../../components/ui/SuccessModal";
 
 export const Faucet = () => {
-  const { isOpen, setIsOpen, setSelectedToken } = useGlobal();
-
+  const { isOpen, setIsOpen, setSelectedToken, isSuccess } = useGlobal();
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -22,6 +22,8 @@ export const Faucet = () => {
             handleClose={handleClose}
             setSelectedToken={setSelectedToken}
           />
+
+          {isSuccess && <SuccessModal />}
 
           <div className="w-full">
             {/* Header */}
