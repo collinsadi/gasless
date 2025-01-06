@@ -1,7 +1,7 @@
 import { useGlobal } from "../../contexts/Globals";
 
 export const ReceivingAddressInput = () => {
-  const { receiverAddress, setReceiverAddress } = useGlobal();
+  const { receiverAddress, setReceiverAddress, isLoading } = useGlobal();
 
   return (
     <div className="mt-5 w-full flex items-center justify-center">
@@ -16,6 +16,7 @@ export const ReceivingAddressInput = () => {
           <div className="w-full">
             <input
               value={receiverAddress}
+              disabled={isLoading}
               onChange={(e) => setReceiverAddress(e.target.value)}
               className="w-full bg-transparent text-2xl py-2 px-2 border-none outline-none text-white font-bold"
               placeholder="0x000000000000000"

@@ -6,8 +6,11 @@ import { SendButton } from "../../components/ui/SendButton";
 import { Header } from "../../components/ui/Header";
 import { TransferAmountInput } from "../../components/ui/TransferAmountInput";
 import { TransactionFee } from "../../components/ui/TransactionFee";
+import { TransactionDetails } from "../../components/ui/TransactionDetails";
+
 export const Home = () => {
-  const { setSelectedToken, isOpen, setIsOpen } = useGlobal();
+  const { setSelectedToken, isOpen, setIsOpen, showTransactionDetails, error } =
+    useGlobal();
 
   const handleClose = () => {
     setIsOpen(false);
@@ -22,6 +25,8 @@ export const Home = () => {
             handleClose={handleClose}
             setSelectedToken={setSelectedToken}
           />
+
+          {showTransactionDetails && <TransactionDetails />}
 
           <div className="w-full">
             {/* Header */}
@@ -43,7 +48,7 @@ export const Home = () => {
 
           <div className="w-full flex items-center justify-center pb-10 flex-col">
             <div className="w-full my-5">
-              <Warning />
+              {error && <Warning />}
             </div>
 
             <SendButton />

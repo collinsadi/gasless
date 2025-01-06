@@ -1,14 +1,7 @@
 import { ethers } from "ethers";
 import dotenv from "dotenv";
 dotenv.config();
-
-interface Message {
-  owner: string;
-  value: string;
-  charge: string;
-  deadline: string;
-  recipient: string;
-}
+import { Message } from "../../common/interfaces/Imessage";
 
 // the address of the gasless transfer contract
 const GASLESS_TRANSFER_CONTRACT_ADDRESS = process.env
@@ -30,12 +23,19 @@ if (
 }
 
 // the function to transfer the token using the gasless transfer contract
-export const transferGasless = async (signature: string, message: Message) => {
+export const transferGasless = async (
+  signature: string,
+  message: Message,
+  rpcUrl: string,
+  tokenAddress: string
+) => {
   // extract the v, r, s from the signature
   const { v, r, s } = ethers.Signature.from(signature);
 
+  console.log(tokenAddress);
+
   // create a provider
-  const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
+  const provider = new ethers.JsonRpcProvider(rpcUrl);
 
   // create a wallet with the private key
   const spenderWallet = new ethers.Wallet(SPENDER_PRIVATE_KEY, provider);
@@ -81,5 +81,6 @@ export const transferGasless = async (signature: string, message: Message) => {
     return receipt.transactionHash;
   } catch (error: any) {
     console.error("Gasless transfer failed:", error);
+    throw error;
   }
 };

@@ -14,7 +14,7 @@ export const tokens: Token[] = [
     symbol: "USDC",
     image: "/usdc_base.webp",
     chain: "Base",
-    address: "0x83358384d0c393e6113dce7670b735e1ee35f8e4",
+    address: "0x0605DE20f52B8b5f850A234c170Dcbd032381BA7",
   },
   {
     name: "Lisk",
@@ -28,6 +28,6 @@ export const tokens: Token[] = [
     symbol: "OP",
     image: "/optimism_opptimism.png",
     chain: "Optimism",
-    address: "0x4200000000000000000000000000000000000006",
+    address: "0x0605DE20f52B8b5f850A234c170Dcbd032381BA7",
   },
 ];

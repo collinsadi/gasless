@@ -10,10 +10,29 @@ interface SignatureData {
   s: string;
   deadline: bigint;
   value: bigint;
+  signature: string;
 }
 
 const PERMIT_ABI = [
-  "function nonces(address owner) view returns (uint256)",
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "owner",
+        type: "address",
+      },
+    ],
+    name: "nonces",
+    outputs: [
+      {
+        name: "",
+        type: "uint256",
+      },
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+  },
 ] as const;
 
 export function usePermitSign() {
@@ -23,7 +42,7 @@ export function usePermitSign() {
 
   //   Contract configuration
   //   const tokenAddress = "0x0605DE20f52B8b5f850A234c170Dcbd032381BA7" as Address;
-  const spender = "0x0A69d334038863Cd4EF9f2c07a22396883fB6AC3" as Address;
+  const spender = "0x53aAeed4F7b4BFF096E073371227780D5CcDAf71" as Address;
 
   // Get nonce for the current user
   const { data: nonce } = useReadContract({
@@ -48,11 +67,13 @@ export function usePermitSign() {
     const deadline = BigInt(Math.floor(Date.now() / 1000) + 3600); // 1 hour from now
 
     const domain = {
-      name: name,
+      name: "GaslessToken",
       version: "1",
       chainId: chain?.id,
       verifyingContract: tokenAddress,
     };
+
+    console.log(domain);
 
     const types = {
       Permit: [
@@ -72,6 +93,8 @@ export function usePermitSign() {
       deadline,
     };
 
+    console.log(message);
+
     try {
       const signatureHex = await signer.signTypedData(domain, types, message);
       const sig = ethers.Signature.from(signatureHex);
@@ -82,6 +105,7 @@ export function usePermitSign() {
         s: sig.s,
         deadline,
         value,
+        signature: signatureHex,
       };
 
       setSignature(signatureData);

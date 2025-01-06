@@ -10,6 +10,8 @@ export const convertGasToUSD = async (gasCostInWei: string): Promise<number> => 
   try {
     const response = await fetch(coinGeckoAPI);
     const data = await response.json() as CoinGeckoResponse;
+
+    console.log(data);
     
     // Convert gas cost from wei to ETH
     const gasCostInEth = Number(gasCostInWei) / 1e18;

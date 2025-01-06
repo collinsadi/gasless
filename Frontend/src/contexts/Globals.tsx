@@ -9,11 +9,13 @@ export function useGlobal() {
 }
 
 export function GlobalProvider({ children }: React.PropsWithChildren) {
-  const [tokenAddress, setTokenAddress] = useState<Address | null>(null);
+  const [tokenAddress, setTokenAddress] = useState<Address | null>(
+    tokens[0].address
+  );
   const [selectedToken, setSelectedToken] = useState<Token | null>(tokens[0]);
   const [userBalance, setUserBalance] = useState<number>(0);
-  const [fee, setFee] = useState<number>(0.5);
-  const [total, setTotal] = useState<number>(0);
+  const [fee, setFee] = useState<BigInt>(BigInt(0));
+  const [total, setTotal] = useState<BigInt>(BigInt(0));
   const [showFee, setShowFee] = useState<boolean>(false);
   const [receiverAddress, setReceiverAddress] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -21,6 +23,9 @@ export function GlobalProvider({ children }: React.PropsWithChildren) {
   // const [calculatingFee, setCalculatingFee] = useState<boolean>(false);
   const [amount, setAmount] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [showTransactionDetails, setShowTransactionDetails] =
+    useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <GlobalContext.Provider
@@ -45,6 +50,10 @@ export function GlobalProvider({ children }: React.PropsWithChildren) {
         setAmount,
         isOpen,
         setIsOpen,
+        showTransactionDetails,
+        setShowTransactionDetails,
+        error,
+        setError,
       }}
     >
       {children}

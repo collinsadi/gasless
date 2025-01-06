@@ -5,6 +5,7 @@ const app = express();
 import { ENVIRONMENT } from "./common/config/environment";
 import { connectDb } from "./common/config/database";
 import cors from "cors";
+import transferRouter from "./modules/routes/transfer.router";
 
 // App Security Configurations
 // app.use(
@@ -38,6 +39,7 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.disable("x-powered-by");
 
 // Routes
+app.use("/api", transferRouter);
 
 // Welcome Message
 app.get("/", (req: Request, res: Response) => {
