@@ -15,10 +15,7 @@ export const AuthScreen = () => {
                 </span>
               </div>
 
-              <div className="text-white text-center">
-                <h3 className="text-2xl font-bold">ZeroETH</h3>
-                {/* <p className="by-collins-adi">by Collins Adi</p> */}
-              </div>
+              <div className="text-white text-center"></div>
 
               <div className="text-3xl text-white">
                 {/* <span>
