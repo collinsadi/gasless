@@ -9,6 +9,7 @@ import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { config } from "./wagmi";
 const client = new QueryClient();
 import { GlobalProvider } from "./contexts/Globals";
+import { FaucetProvider } from "./contexts/Faucet";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -16,7 +17,9 @@ createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={client}>
         <RainbowKitProvider>
           <GlobalProvider>
-            <App />
+            <FaucetProvider>
+              <App />
+            </FaucetProvider>
           </GlobalProvider>
         </RainbowKitProvider>
       </QueryClientProvider>

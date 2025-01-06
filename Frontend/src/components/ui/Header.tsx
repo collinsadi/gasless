@@ -1,5 +1,6 @@
 import { FaEthereum } from "react-icons/fa";
 import { MdHistoryToggleOff } from "react-icons/md";
+import { NavLink } from "react-router-dom";
 
 export const Header = () => {
   return (
@@ -10,8 +11,13 @@ export const Header = () => {
         </span>
       </div>
 
-      <div className="text-white text-center">
-        <h3 className="text-2xl font-bold">ZeroETH</h3>
+      <div className="text-white text-center flex items-center p-3">
+        <NavLink to={"/"} className="border-b pb-2">
+          <h3>Send</h3>
+        </NavLink>
+        <NavLink to={"/faucet"} className="pl-3 pb-2 border-b">
+          <h3>Claim</h3>
+        </NavLink>
       </div>
 
       <div className="text-3xl text-white">

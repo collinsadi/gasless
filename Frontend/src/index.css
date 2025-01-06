@@ -32,3 +32,7 @@
        transform: rotate(1turn);
     }
  }
+
+ .active{
+    border-bottom-color: #00DE88;
+ }
