@@ -3,10 +3,12 @@ import { IoClose } from "react-icons/io5";
 import { getChainByName } from "../../config/chains";
 import { useSwitchChain } from "wagmi";
 import { tokens, Token } from "../../config/token";
+import { useGlobal } from "../../contexts/Globals";
 
 
 
 type TokenModalProps = {
+
   isOpen: boolean;
   handleClose: () => void;
   setSelectedToken: (token: Token) => void;
@@ -18,13 +20,13 @@ export const TokenModal = ({
   setSelectedToken,
 }: TokenModalProps) => {
   const { switchChain } = useSwitchChain();
-
+  const { setTokenAddress } = useGlobal();
 
 
   const handleTokenClick = (token: Token) => {
     setSelectedToken(token);
     handleClose();
-
+    setTokenAddress(token.address);
     // switch to the chain
 
     const chain = getChainByName(token.chain);

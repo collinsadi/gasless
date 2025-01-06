@@ -1,5 +1,5 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-export const ConnectWalletButton = () => {
+export const ConnectWalletButton = ({ disabled }: { disabled: boolean }) => {
   return (
     <ConnectButton.Custom>
       {({
@@ -35,7 +35,12 @@ export const ConnectWalletButton = () => {
                 return (
                   <button
                     onClick={openConnectModal}
-                    className='className="w-[90%] bg-[#46DE8C] p-4 rounded-xl font-bold disabled:cursor-not-allowed disabled:bg-[#272727] disabled:text-[#767676]"'
+                    disabled={disabled}
+                    className={`w-[90%] bg-[#46DE8C] p-4 rounded-xl font-bold disabled:cursor-not-allowed disabled:bg-[#272727] disabled:text-[#767676] ${
+                      disabled
+                        ? "cursor-not-allowed bg-[#272727] text-[#767676]"
+                        : ""
+                    }`}
                     type="button"
                   >
                     Connect Wallet
@@ -44,7 +49,11 @@ export const ConnectWalletButton = () => {
               }
               if (chain.unsupported) {
                 return (
-                  <button className="w-[90%] bg-[#46DE8C] p-4 rounded-xl font-bold disabled:cursor-not-allowed disabled:bg-[#272727] disabled:text-[#767676]" onClick={openChainModal} type="button">
+                  <button
+                    className="w-[90%] bg-[#46DE8C] p-4 rounded-xl font-bold disabled:cursor-not-allowed disabled:bg-[#272727] disabled:text-[#767676]"
+                    onClick={openChainModal}
+                    type="button"
+                  >
                     Wrong network
                   </button>
                 );

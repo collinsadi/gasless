@@ -29,7 +29,7 @@ export const AuthScreen = () => {
           </div>
 
           <div className="w-full flex items-center justify-center pb-10">
-            <ConnectWalletButton />
+            <ConnectWalletButton disabled={false} />
           </div>
 
           <div className="w-full flex items-center justify-center pb-10"></div>

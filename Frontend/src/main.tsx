@@ -8,13 +8,16 @@ import { WagmiProvider } from "wagmi";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { config } from "./wagmi";
 const client = new QueryClient();
+import { GlobalProvider } from "./contexts/Globals";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>
         <RainbowKitProvider>
-          <App />
+          <GlobalProvider>
+            <App />
+          </GlobalProvider>
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>

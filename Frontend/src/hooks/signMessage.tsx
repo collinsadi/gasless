@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAccount, useReadContract } from "wagmi";
 import { ethers } from "ethers";
 import { Address } from "viem";
+import { useGlobal } from "../contexts/Globals";
 
 interface SignatureData {
   v: number;
@@ -16,28 +17,26 @@ const PERMIT_ABI = [
 ] as const;
 
 export function usePermitSign() {
+  const { tokenAddress } = useGlobal();
   const { address, chain } = useAccount();
   const [signature, setSignature] = useState<SignatureData | null>(null);
 
-  // Contract configuration
+  //   Contract configuration
   //   const tokenAddress = "0x0605DE20f52B8b5f850A234c170Dcbd032381BA7" as Address;
   const spender = "0x0A69d334038863Cd4EF9f2c07a22396883fB6AC3" as Address;
 
+  // Get nonce for the current user
+  const { data: nonce } = useReadContract({
+    address: tokenAddress,
+    abi: PERMIT_ABI,
+    functionName: "nonces",
+    args: address ? [address] : undefined,
+  });
+
   const signPermit = async (
-    tokenAddress: Address,
     value: bigint,
     name: string
   ): Promise<SignatureData> => {
-    // Get nonce for the current user
-    const { data: nonce } = useReadContract({
-      address: tokenAddress,
-      abi: PERMIT_ABI,
-      functionName: "nonces",
-      args: address ? [address] : undefined,
-    });
-
-    console.log(nonce);
-
     if (!address || !window.ethereum) {
       throw new Error("Wallet not connected");
     }
