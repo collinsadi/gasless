@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { convertGasToUSD } from "./convertGas";
 import { Message } from "../interfaces/Imessage";
-import { getContract } from "common/config/contracts";
+import { getContract } from "../config/contracts";
 // the address of the gasless transfer contract
 
 // the private key used in the deployer of the gasless transfer contract (OWNER)

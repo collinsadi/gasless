@@ -2,12 +2,11 @@ import { Request, Response } from "express";
 import { transferGasless } from "../../services/transfer.service";
 import { Message } from "../../../common/interfaces/Imessage";
 import { dryRunGaslessTransfer } from "../../../common/utils/dryRun";
-import { ENVIRONMENT } from "../../../common/config/environment";
-import { getRpcUrl } from "common/utils/rpcUtil";
+import { getRpcUrl } from "../../../common/utils/rpcUtil";
 import { ETHToLSK, ETHToOP, ETHToUSDC } from "../../../common/utils/ratePairs";
-import { calculateGas } from "common/utils/calculateGas";
-import { getContract } from "common/config/contracts";
-import { mintTokens } from "common/utils/claimUtil";
+import { calculateGas } from "../../../common/utils/calculateGas";
+import { getContract } from "../../../common/config/contracts";
+import { mintTokens } from "../../../common/utils/claimUtil";
 
 export const transferController = async (
   req: Request,
