@@ -26,6 +26,7 @@ export function GlobalProvider({ children }: React.PropsWithChildren) {
   const [showTransactionDetails, setShowTransactionDetails] =
     useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   return (
     <GlobalContext.Provider
@@ -54,6 +55,8 @@ export function GlobalProvider({ children }: React.PropsWithChildren) {
         setShowTransactionDetails,
         error,
         setError,
+        isSuccess,
+        setIsSuccess,
       }}
     >
       {children}

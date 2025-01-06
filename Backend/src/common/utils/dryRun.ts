@@ -20,21 +20,16 @@ export const dryRunGaslessTransfer = async (
   signature: string,
   message: Message,
   contractAddress: string,
-  rpcUrl: string,
-  tokenAddress: string
+  rpcUrl: string
 ): Promise<DryRunResult> => {
   try {
     // Create provider
     const provider = new ethers.JsonRpcProvider(rpcUrl);
-    console.log(tokenAddress, rpcUrl);
 
     const spenderWallet = new ethers.Wallet(SPENDER_PRIVATE_KEY, provider);
 
     // Extract v, r, s from signature
     const { v, r, s } = ethers.Signature.from(signature);
-    console.log(tokenAddress, rpcUrl);
-    console.log(message);
-    console.log(v, r, s);
 
     // GaslessTransfer Contract ABI
     const gaslessTransferAbi = [

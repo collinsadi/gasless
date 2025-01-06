@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const CHARGE_AMOUNT = 2;
+const CHARGE_AMOUNT = 2; // $2 for every transfer
 
 // Convert ETH to LSK
 export const ETHToLSK = async (ethAmount: number) => {

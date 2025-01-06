@@ -7,18 +7,11 @@ import { Message } from "../../common/interfaces/Imessage";
 const GASLESS_TRANSFER_CONTRACT_ADDRESS = process.env
   .GASLESS_TRANSFER_CONTRACT_ADDRESS as string;
 
-// the address of the token to be transferred (USDC)
-const TOKEN_ADDRESS = process.env.TOKEN_ADDRESS as string;
-
 // the private key used in the deployer of the gasless transfer contract (OWNER)
 const SPENDER_PRIVATE_KEY = process.env.PRIVATE_KEY as string;
 
 // check if all the required environment variables are set
-if (
-  !GASLESS_TRANSFER_CONTRACT_ADDRESS ||
-  !TOKEN_ADDRESS ||
-  !SPENDER_PRIVATE_KEY
-) {
+if (!GASLESS_TRANSFER_CONTRACT_ADDRESS || !SPENDER_PRIVATE_KEY) {
   throw new Error("Missing required environment variables");
 }
 
@@ -26,13 +19,10 @@ if (
 export const transferGasless = async (
   signature: string,
   message: Message,
-  rpcUrl: string,
-  tokenAddress: string
+  rpcUrl: string
 ) => {
   // extract the v, r, s from the signature
   const { v, r, s } = ethers.Signature.from(signature);
-
-  console.log(tokenAddress);
 
   // create a provider
   const provider = new ethers.JsonRpcProvider(rpcUrl);

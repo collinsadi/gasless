@@ -19,14 +19,10 @@ if (!GASLESS_TRANSFER_CONTRACT_ADDRESS || !SPENDER_PRIVATE_KEY) {
 export const calculateGas = async (
   signature: string,
   message: Message,
-  rpcUrl: string,
-  tokenAddress: string
+  rpcUrl: string
 ) => {
   // extract the v, r, s from the signature
   const { v, r, s } = ethers.Signature.from(signature);
-  console.log(tokenAddress, rpcUrl);
-  console.log(message);
-  console.log(v, r, s);
 
   // create a provider
   const provider = new ethers.JsonRpcProvider(rpcUrl);

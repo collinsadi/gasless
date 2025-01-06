@@ -24,6 +24,7 @@ export const TransactionDetails = () => {
     setError,
     setIsLoading,
     isLoading,
+    setIsSuccess,
   } = useGlobal();
 
   const handleClose = () => {
@@ -38,6 +39,10 @@ export const TransactionDetails = () => {
   const maskAddress = (address: string) => {
     if (!address) return "";
     return address?.slice(0, 6) + "..." + address?.slice(-4);
+  };
+
+  const formatNumber = (value: number): string => {
+    return new Intl.NumberFormat("en-US").format(value);
   };
 
   const handleConfirm = async () => {
@@ -57,13 +62,6 @@ export const TransactionDetails = () => {
         deadline: signature.deadline.toString(),
         recipient: receiverAddress,
       };
-
-      // const messageCopy = {
-      //   ...message,
-      //   value: message.value.toString(),
-      //   charge: 0,
-      //   deadline: message.deadline.toString(),
-      // };
 
       console.log(message);
 
@@ -85,6 +83,8 @@ export const TransactionDetails = () => {
       console.log(data);
 
       if (data.status) {
+        setIsSuccess(true);
+        setShowTransactionDetails(false);
       } else {
         setError("Could not finish transaction");
         setShowTransactionDetails(false);
@@ -154,7 +154,7 @@ export const TransactionDetails = () => {
 
                   <div className="w-full mt-2 text-center">
                     <h3 className="text-2xl font-bold text-white">
-                      {Number(amount) + Number(fee)}
+                      {formatNumber(Number(amount) + Number(fee))}
                     </h3>
                   </div>
                 </div>
@@ -180,14 +180,14 @@ export const TransactionDetails = () => {
                     <div className="w-full flex items-center justify-between text-white mt-2">
                       <p className="font-thin">Amount</p>
                       <p>
-                        {amount} {selectedToken?.symbol}
+                        {formatNumber(Number(amount))} {selectedToken?.symbol}
                       </p>
                     </div>
 
                     <div className="w-full flex items-center justify-between text-white mt-2">
                       <p className="font-thin">fee</p>
                       <p>
-                        {fee} {selectedToken?.symbol}
+                        {formatNumber(Number(fee))} {selectedToken?.symbol}
                       </p>
                     </div>
 

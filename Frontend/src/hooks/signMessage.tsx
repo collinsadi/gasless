@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useAccount, useReadContract } from "wagmi";
 import { ethers } from "ethers";
-import { Address } from "viem";
+
 import { useGlobal } from "../contexts/Globals";
+import { spender } from "../constants/spender";
 
 interface SignatureData {
   v: number;
@@ -40,10 +41,6 @@ export function usePermitSign() {
   const { address, chain } = useAccount();
   const [signature, setSignature] = useState<SignatureData | null>(null);
 
-  //   Contract configuration
-  //   const tokenAddress = "0x0605DE20f52B8b5f850A234c170Dcbd032381BA7" as Address;
-  const spender = "0x53aAeed4F7b4BFF096E073371227780D5CcDAf71" as Address;
-
   // Get nonce for the current user
   const { data: nonce } = useReadContract({
     address: tokenAddress,
@@ -73,8 +70,6 @@ export function usePermitSign() {
       verifyingContract: tokenAddress,
     };
 
-    console.log(domain);
-
     const types = {
       Permit: [
         { name: "owner", type: "address" },
@@ -92,8 +87,6 @@ export function usePermitSign() {
       nonce: nonce || 0n,
       deadline,
     };
-
-    console.log(message);
 
     try {
       const signatureHex = await signer.signTypedData(domain, types, message);
@@ -121,42 +114,3 @@ export function usePermitSign() {
     signature,
   };
 }
-
-// interface ButtonProps {
-//   className?: string;
-//   onSignature?: (sig: SignatureData) => void;
-// }
-
-// export function PermitButton({ className, onSignature }: ButtonProps) {
-//   const { signPermit } = usePermitSign();
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [error, setError] = useState<string | null>(null);
-
-//   const handleSign = async () => {
-//     setError(null);
-//     setIsLoading(true);
-//     try {
-//       const sig = await signPermit();
-//       onSignature?.(sig);
-//     } catch (err) {
-//       setError(err instanceof Error ? err.message : "Failed to sign");
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="flex flex-col gap-4">
-//       <button
-//         onClick={handleSign}
-//         disabled={isLoading}
-//         className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600
-//           disabled:bg-gray-400 disabled:cursor-not-allowed ${className || ""}`}
-//       >
-//         {isLoading ? "Signing..." : "Sign Permit"}
-//       </button>
-
-//       {error && <div className="text-red-500">{error}</div>}
-//     </div>
-//   );
-// }

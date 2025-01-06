@@ -7,9 +7,10 @@ import { Header } from "../../components/ui/Header";
 import { TransferAmountInput } from "../../components/ui/TransferAmountInput";
 import { TransactionFee } from "../../components/ui/TransactionFee";
 import { TransactionDetails } from "../../components/ui/TransactionDetails";
+import { SuccessModal } from "../../components/ui/SuccessModal";
 
 export const Home = () => {
-  const { setSelectedToken, isOpen, setIsOpen, showTransactionDetails, error } =
+  const { setSelectedToken, isOpen, setIsOpen, showTransactionDetails, error, isSuccess } =
     useGlobal();
 
   const handleClose = () => {
@@ -27,6 +28,8 @@ export const Home = () => {
           />
 
           {showTransactionDetails && <TransactionDetails />}
+
+          {isSuccess && <SuccessModal />}
 
           <div className="w-full">
             {/* Header */}
