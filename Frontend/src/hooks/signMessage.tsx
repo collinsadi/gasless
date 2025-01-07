@@ -40,7 +40,7 @@ export function usePermitSign() {
   const { tokenAddress } = useGlobal();
   const { address, chain } = useAccount();
   const [signature, setSignature] = useState<SignatureData | null>(null);
-  const spender = getContract(chain?.id as number).address;
+  const spender = getContract(chain?.id as number)?.address;
 
   // Get nonce for the current user, i want this to run anytime the user changes chain or completes a transaction
 
