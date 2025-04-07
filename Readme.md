@@ -2,7 +2,6 @@
 
 Gasless is an experimental tool that leverages **ERC 2612** to enable users to send tokens without the need for ETH to pay for gas. This project aims to simplify token transactions by eliminating the upfront requirement for ETH, creating a seamless experience for users.
 
-You can explore the tool at [gasless.collinsadi.xyz](https://gasless.collinsadi.xyz).
 
 ## Features
 
@@ -27,20 +26,6 @@ You can explore the tool at [gasless.collinsadi.xyz](https://gasless.collinsadi.
 ## Contribute
 
 Gasless is an open-source experimental implementation of **EIP-2612**, and contributions are highly encouraged! If you have any ideas or suggestions to enhance the project, feel free to contribute to the repository.
-
-Key areas for improvement:
-
-- Gas fee calculation system.
-- Uniswap integration.
-- General optimizations or new features.
-
-## How to Test
-
-1. Visit [gasless.collinsadi.xyz](https://gasless.collinsadi.xyz).
-2. Navigate to the **Claim** tab and claim demo tokens.
-3. Test the tool by sending tokens without needing ETH in your wallet.
-
-**Note**: All tokens available for testing are **demo tokens** on the Sepolia testnet and are intended for **test purposes only**.
 
 ## Disclaimer
 
